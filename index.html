@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <title>International telephone input(MZ version)</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+  />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <form id="login" onsubmit="process(event)">
+    <p>Enter your phone number:</p>
+    <input id="phone" type="tel" name="phone" />
+    <input type="submit" class="btn" value="Verify phone number" />
+    <div class="alert alert-info" style="display: none;"></div>
+  </form>
+</div>
+<script>
+  const phoneInputField = document.querySelector("#phone");
+  const phoneInput = window.intlTelInput(phoneInputField, {
+    utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+  });
+
+  const info = document.querySelector(".alert-info");
+
+  function process(event) {
+    event.preventDefault();
+    const phoneNumber = phoneInput.getNumber();
+    info.style.display = "";
+    info.innerHTML = `Phone number in E.164 format: <strong>${phoneNumber}</strong>`;
+  }
+  // Here we select the code that i'll be displayed by default
+  window.addEventListener('load', function () {
+    const phoneInput = window.intlTelInput(phoneInputField, {
+      preferredCountries: ["mz", "za", "zw","mg"],
+      utilsScript:
+              "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+  })
+
+</script>
+</body>
+</html>
